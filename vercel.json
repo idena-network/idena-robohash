@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+      { "source": "/:address", "destination": "/api/robot" },
+      { "source": "/", "destination": "/api/robot" }
+    ]
+  }
