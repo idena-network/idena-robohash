@@ -2,7 +2,6 @@ from http.server import BaseHTTPRequestHandler
 from robohash import Robohash
 import io
 import base64
-
 import urllib
 
 
@@ -51,16 +50,11 @@ class handler(BaseHTTPRequestHandler):
 
         # Print the Robot to the handler, as a file-like obj
         if r.format != 'datauri':
-            # self.wfile.write(r.img.tobytes())
-            
-            fakefile = io.BytesIO()
-            r.img.save(fakefile, format=format)
-            fakefile.seek(0)
-            self.wfile.write(fakefile.read())
+            r.img.save(self.wfile, format=format)
         else:
             # Or, if requested, base64 encode first.
             fakefile = io.BytesIO()
-            r.img.save(fakefile, format=format)
+            r.img.save(fakefile, format='PNG')
             fakefile.seek(0)
             b64ver = base64.b64encode(fakefile.read())
             b64ver = b64ver.decode('utf-8')
